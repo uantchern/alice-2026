@@ -627,8 +627,8 @@
                     {/* ABOUT MODAL */}
                     {isAboutOpen && (
                         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in text-left" onClick={() => setIsAboutOpen(false)}>
-                            <div className="bg-[#0f172a] border border-slate-700 rounded-2xl p-8 max-w-2xl w-full relative shadow-2xl" onClick={e => e.stopPropagation()}>
-                                <button onClick={() => setIsAboutOpen(false)} className="absolute top-4 right-4 text-slate-400 hover:text-white transition">
+                            <div className="bg-[#0f172a] border border-slate-700 rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl" onClick={e => e.stopPropagation()}>
+                                <button onClick={() => setIsAboutOpen(false)} className="absolute top-4 right-4 text-slate-400 hover:text-white transition z-10">
                                     <X size={24} />
                                 </button>
                                 <h2 className="text-3xl font-black text-accent-cyan mb-6 tracking-tight">About Alice 2026</h2>
