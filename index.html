@@ -389,23 +389,54 @@
                 { id: 1, title: 'Tote Board Community Health Fund', amount: '$50,000', match: '94%', anomaly: 'Missing impact data for youths', deadline: '14 Days' },
                 { id: 2, title: 'NCSS Tech-and-GO!', amount: '$30,000', match: '88%', anomaly: 'Requires governance policy', deadline: '30 Days' }
             ]);
+            const [newLead, setNewLead] = useState({ title: '', amount: '', anomaly: '', deadline: '' });
 
             const handleSwipe = (id) => {
                 setMatches(matches.filter(m => m.id !== id));
+            };
+
+            const addLead = () => {
+                if (newLead.title) {
+                    setMatches([{ id: Date.now(), ...newLead, match: 'Lead' }, ...matches]);
+                    setNewLead({ title: '', amount: '', anomaly: '', deadline: '' });
+                }
             };
 
             return (
                 <div className="glass-panel p-6 sm:p-10 rounded-2xl animate-fade-in shadow-sm border border-slate-700 overflow-hidden">
                     <div className="flex items-center gap-4 mb-3">
                         <div className="p-3 bg-slate-800 rounded-xl border border-slate-700"><Search size={32} className="text-slate-300" /></div>
-                        <h2 className="text-3xl font-black text-white tracking-tight">B2: The Matchmaker List</h2>
+                        <h2 className="text-3xl font-black text-white tracking-tight">B2: The Treasure Hunt</h2>
                     </div>
-                    <p className="text-slate-400 text-lg mb-4 ml-16">Alice scoured 43 grant portals this morning. Here are your top matches.</p>
+                    <p className="text-slate-400 text-lg mb-4 ml-16">Alice scoured 43 grant portals this morning. Track opportunities and alert the right people to action.</p>
                     <div className="ml-16 mb-8 text-xs text-slate-500 bg-slate-900/50 p-3 rounded-lg border border-slate-700 max-w-2xl">
                         <strong className="text-slate-400">Methodology:</strong> Matches are generated using NLP semantic search across public datasets (e.g. toteboard.gov.sg) cross-referenced against your A1 Theory of Change keywords.
                     </div>
 
-                    <div className="max-w-3xl mx-auto space-y-4">
+                    <div className="max-w-3xl mx-auto space-y-6">
+                        <div className="bg-slate-800/20 p-6 rounded-xl border border-slate-700 shadow-inner flex flex-col md:flex-row gap-4 items-end">
+                            <div className="flex-1 w-full space-y-3">
+                                <div>
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Lead Title</label>
+                                    <input type="text" value={newLead.title} onChange={e => setNewLead({ ...newLead, title: e.target.value })} className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-accent-emerald transition-colors" placeholder="e.g. Major Donor Prospect" />
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className="flex-1">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Amount</label>
+                                        <input type="text" value={newLead.amount} onChange={e => setNewLead({ ...newLead, amount: e.target.value })} className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-accent-emerald transition-colors" placeholder="e.g. $10,000" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Deadline</label>
+                                        <input type="text" value={newLead.deadline} onChange={e => setNewLead({ ...newLead, deadline: e.target.value })} className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-accent-emerald transition-colors" placeholder="e.g. 7 Days" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Next Action</label>
+                                    <input type="text" value={newLead.anomaly} onChange={e => setNewLead({ ...newLead, anomaly: e.target.value })} className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-accent-emerald transition-colors" placeholder="e.g. Follow up with proposal" />
+                                </div>
+                            </div>
+                            <button onClick={addLead} className="w-full md:w-auto bg-accent-emerald text-slate-900 px-6 py-3 rounded-xl font-bold hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)] whitespace-nowrap">Track Lead</button>
+                        </div>
                         {matches.length === 0 ? (
                             <div className="text-center text-slate-500 animate-fade-in bg-slate-800/30 p-10 rounded-2xl border border-slate-700 w-full">
                                 <CheckCircle size={48} className="mx-auto mb-4 text-slate-600" />
@@ -430,16 +461,16 @@
 
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-900/50 rounded-xl border border-slate-700 p-4 gap-6 mt-2">
                                             <div>
-                                                <div className="text-xs text-slate-500 uppercase tracking-wider font-bold mb-1">Requirement Gap</div>
+                                                <div className="text-xs text-slate-500 uppercase tracking-wider font-bold mb-1">Requirement / Next Action</div>
                                                 <p className="text-sm font-medium text-slate-300">{match.anomaly}</p>
                                             </div>
                                             <div className="flex gap-3 w-full md:w-auto">
                                                 <button onClick={() => handleSwipe(match.id)} className="px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-700 text-slate-300 hover:bg-slate-600 transition border border-slate-600 shadow-sm flex-1 md:flex-none">
                                                     Dismiss
                                                 </button>
-                                                <a href="https://uantchern.github.io/charity-portal/#/d2" className="bg-accent-emerald/10 text-accent-emerald hover:bg-accent-emerald hover:text-white px-5 py-2.5 rounded-xl font-bold transition border border-accent-emerald/30 shadow-sm flex items-center justify-center gap-2 text-sm group flex-[2] md:flex-none">
-                                                    <Compass size={16} className="group-hover:scale-110 transition-transform" />
-                                                    D2 Wayfinder: Stakeholders
+                                                <a href="https://uantchern.github.io/charity-portal/#/d3" className="bg-accent-emerald/10 text-accent-emerald hover:bg-accent-emerald hover:text-white px-5 py-2.5 rounded-xl font-bold transition border border-accent-emerald/30 shadow-sm flex items-center justify-center gap-2 text-sm group flex-[2] md:flex-none">
+                                                    <Layers size={16} className="group-hover:scale-110 transition-transform" />
+                                                    D3 Survey: Alert Team
                                                 </a>
                                             </div>
                                         </div>
@@ -453,78 +484,104 @@
         }
 
         // B3 Component
-        const B3Costs = () => (
-            <div className="glass-panel p-6 sm:p-10 rounded-2xl animate-fade-in shadow-sm border border-slate-700">
-                <div className="flex items-center gap-4 mb-3">
-                    <div className="p-3 bg-slate-800 rounded-xl border border-slate-700"><ShieldAlert size={32} className="text-slate-300" /></div>
-                    <h2 className="text-3xl font-black text-white tracking-tight">B3: The Zombie Hunter</h2>
-                </div>
-                <p className="text-slate-400 text-lg mb-4 ml-16">Anomaly Detection Agent found inactive recurring subscriptions draining the budget.</p>
-                <div className="ml-16 mb-8 text-xs text-slate-500 bg-slate-900/50 p-3 rounded-lg border border-slate-700 max-w-2xl">
-                    <strong className="text-slate-400">Methodology:</strong> Anomalies are flagged by cross-referencing CSV spending exports against Microsoft Entra ID active login logs over a 90-day rolling period.
-                </div>
+        const B3Costs = () => {
+            const [zombies, setZombies] = useState([
+                { id: 1, title: 'Notion Enterprise', anomaly: '0 logins in 90 days', cost: '-$120 /mo', type: 'Subscription' },
+                { id: 2, title: 'Annual Gala 2026', anomaly: 'ROI is historically negative', cost: '-$45,000', type: 'Event' },
+                { id: 3, title: 'External Consultant (PR)', anomaly: 'Deliverable missing for 3 months', cost: '-$5,000 /mo', type: 'People' },
+                { id: 4, title: 'Mailchimp Legacy', anomaly: '3 duplicate lists', cost: '-$300 /mo', type: 'Subscription' }
+            ]);
+            const [newZombie, setNewZombie] = useState({ title: '', cost: '', anomaly: '', type: 'Expense' });
 
-                <div className="space-y-4 max-w-3xl mx-auto">
-                    <div className="bg-slate-800/50 border border-slate-700 hover:border-slate-500 transition-colors rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-accent-rose"></div>
-                        <div className="flex items-center gap-5">
-                            <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center border border-slate-700 shadow-inner shrink-0">
-                                <span className="text-3xl text-slate-400 font-bold">N</span>
-                            </div>
-                            <div>
-                                <h4 className="text-xl text-white font-bold mb-1">Notion Enterprise</h4>
-                                <p className="text-sm font-medium text-slate-400 flex items-center gap-2">Anomaly: <span className="text-accent-rose">0 logins in 90 days</span></p>
-                            </div>
-                        </div>
-                        <div className="flex flex-col md:items-end gap-3 w-full md:w-auto">
-                            <div className="text-left md:text-right">
-                                <div className="text-slate-300 font-black text-3xl font-mono">-$120 <span className="text-sm font-sans font-medium text-slate-500">/mo</span></div>
-                            </div>
-                            <div className="flex gap-2 w-full md:w-auto mt-2 md:mt-0">
-                                <button className="bg-slate-700 text-slate-200 hover:bg-slate-600 px-4 py-2 rounded-lg font-bold transition border border-slate-600 shadow-sm whitespace-nowrap text-sm flex-1 md:flex-none">
-                                    Cancel
-                                </button>
-                                <a href="https://uantchern.github.io/charity-portal/#/d3" className="bg-accent-orange/10 text-accent-orange hover:bg-accent-orange hover:text-white px-4 py-2 rounded-lg font-bold transition border border-accent-orange/30 shadow-sm flex justify-center items-center gap-2 text-sm group flex-[2] md:flex-none">
-                                    <Layers size={14} className="group-hover:scale-110 transition-transform" />
-                                    D3 Survey: Poll Staff
-                                </a>
-                            </div>
-                        </div>
+            const killZombie = (id) => {
+                setZombies(zombies.filter(z => z.id !== id));
+            };
+
+            const addZombie = () => {
+                if (newZombie.title) {
+                    setZombies([{ id: Date.now(), ...newZombie }, ...zombies]);
+                    setNewZombie({ title: '', cost: '', anomaly: '', type: 'Expense' });
+                }
+            };
+
+            return (
+                <div className="glass-panel p-6 sm:p-10 rounded-2xl animate-fade-in shadow-sm border border-slate-700">
+                    <div className="flex items-center gap-4 mb-3">
+                        <div className="p-3 bg-slate-800 rounded-xl border border-slate-700"><ShieldAlert size={32} className="text-slate-300" /></div>
+                        <h2 className="text-3xl font-black text-white tracking-tight">B3: The Cost Hunter</h2>
+                    </div>
+                    <p className="text-slate-400 text-lg mb-4 ml-16">Hunt down unnecessary expenses, events, subscriptions, and people that can be cut.</p>
+                    <div className="ml-16 mb-8 text-xs text-slate-500 bg-slate-900/50 p-3 rounded-lg border border-slate-700 max-w-2xl">
+                        <strong className="text-slate-400">Methodology:</strong> Anomalies are flagged by cross-referencing CSV spending exports against Microsoft Entra ID active login logs and historical campaign ROIs.
                     </div>
 
-                    <div className="bg-slate-800/50 border border-slate-700 hover:border-slate-500 transition-colors rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-accent-rose"></div>
-                        <div className="flex items-center gap-5">
-                            <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center border border-slate-700 shadow-inner shrink-0">
-                                <span className="text-2xl font-bold italic text-slate-400">MC</span>
+                    <div className="space-y-6 max-w-3xl mx-auto">
+                        <div className="bg-slate-800/20 p-6 rounded-xl border border-slate-700 shadow-inner flex flex-col md:flex-row gap-4 items-end">
+                            <div className="flex-1 w-full space-y-3">
+                                <div className="flex gap-4">
+                                    <div className="flex-[2]">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Target Name</label>
+                                        <input type="text" value={newZombie.title} onChange={e => setNewZombie({ ...newZombie, title: e.target.value })} className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-accent-rose transition-colors" placeholder="e.g. Unused Storage Unit" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Cost</label>
+                                        <input type="text" value={newZombie.cost} onChange={e => setNewZombie({ ...newZombie, cost: e.target.value })} className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-accent-rose transition-colors" placeholder="e.g. -$500 /mo" />
+                                    </div>
+                                </div>
+                                <div className="flex gap-4 items-end">
+                                    <div className="flex-[2]">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Reason to cut</label>
+                                        <input type="text" value={newZombie.anomaly} onChange={e => setNewZombie({ ...newZombie, anomaly: e.target.value })} className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-accent-rose transition-colors" placeholder="e.g. Completely empty for 2 years" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <select value={newZombie.type} onChange={e => setNewZombie({ ...newZombie, type: e.target.value })} className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-accent-rose transition-colors">
+                                            <option>Subscription</option>
+                                            <option>Event</option>
+                                            <option>People</option>
+                                            <option>Expense</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h4 className="text-xl text-white font-bold mb-1">Mailchimp Legacy</h4>
-                                <p className="text-sm font-medium text-slate-400 flex items-center gap-2">Anomaly: <span className="text-accent-orange">3 duplicate lists</span></p>
-                            </div>
+                            <button onClick={addZombie} className="w-full md:w-auto bg-accent-rose text-white px-6 py-3 rounded-xl font-bold hover:bg-rose-500 transition shadow-[0_0_15px_rgba(244,63,94,0.2)] whitespace-nowrap">Add Target</button>
                         </div>
-                        <div className="flex flex-col md:items-end gap-3 w-full md:w-auto">
-                            <div className="text-left md:text-right">
-                                <div className="text-slate-300 font-black text-3xl font-mono">-$300 <span className="text-sm font-sans font-medium text-slate-500">/mo</span></div>
+
+                        {zombies.map(zombie => (
+                            <div key={zombie.id} className="bg-slate-800/50 border border-slate-700 hover:border-slate-500 transition-colors rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-1 h-full bg-accent-rose"></div>
+                                <div className="flex flex-col md:flex-row md:items-center gap-4 w-full md:w-auto">
+                                    <div className="flex-shrink-0">
+                                        <span className="bg-slate-700 text-slate-300 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">{zombie.type}</span>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xl text-white font-bold mb-1">{zombie.title}</h4>
+                                        <p className="text-sm font-medium text-slate-400 flex items-center gap-2">Anomaly: <span className="text-accent-rose">{zombie.anomaly}</span></p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col md:items-end gap-3 w-full md:w-auto flex-shrink-0">
+                                    <div className="text-left md:text-right">
+                                        <div className="text-slate-300 font-black text-3xl font-mono">{zombie.cost.split(' ')[0]} <span className="text-sm font-sans font-medium text-slate-500">{zombie.cost.substring(zombie.cost.indexOf(' ')).trim()}</span></div>
+                                    </div>
+                                    <div className="flex gap-2 w-full md:w-auto mt-2 md:mt-0 drop-shadow-sm">
+                                        <button onClick={() => killZombie(zombie.id)} className="bg-slate-700 text-slate-200 hover:bg-slate-600 px-4 py-2 rounded-lg font-bold transition border border-slate-600 shadow-sm whitespace-nowrap text-sm flex-1 md:flex-none">
+                                            Cut
+                                        </button>
+                                        <a href="https://uantchern.github.io/charity-portal/#/d1" className="bg-accent-cyan/10 text-accent-cyan hover:bg-accent-cyan hover:text-white px-4 py-2 rounded-lg font-bold transition border border-accent-cyan/30 flex justify-center items-center gap-2 text-sm group flex-[2] md:flex-none">
+                                            <MessageSquare size={14} className="group-hover:scale-110 transition-transform" />
+                                            D1 Question Stormer
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex gap-2 w-full md:w-auto mt-2 md:mt-0">
-                                <button className="bg-slate-700 text-slate-200 hover:bg-slate-600 px-4 py-2 rounded-lg font-bold transition border border-slate-600 shadow-sm whitespace-nowrap text-sm flex-1 md:flex-none">
-                                    Negotiate
-                                </button>
-                                <a href="https://uantchern.github.io/charity-portal/#/d1" className="bg-accent-cyan/10 text-accent-cyan hover:bg-accent-cyan hover:text-white px-4 py-2 rounded-lg font-bold transition border border-accent-cyan/30 shadow-sm flex justify-center items-center gap-2 text-sm group flex-[2] md:flex-none">
-                                    <MessageSquare size={14} className="group-hover:scale-110 transition-transform" />
-                                    D1 Question Stormer
-                                </a>
-                            </div>
-                        </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-12 max-w-3xl mx-auto text-center border-t border-slate-700/50 pt-6">
+                        <span className="text-slate-400 text-lg">Resolving these targets will extend Runway by <strong className="text-white animate-pulse">4+ Days</strong>.</span>
                     </div>
                 </div>
-
-                <div className="mt-12 max-w-3xl mx-auto text-center border-t border-slate-700/50 pt-6">
-                    <span className="text-slate-400 text-lg">Resolving these anomalies will extend Runway by <strong className="text-white">4 Days</strong>.</span>
-                </div>
-            </div>
-        );
+            )
+        };
 
         const TopNav = () => {
             const loc = useLocation();
