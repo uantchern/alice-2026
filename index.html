@@ -96,72 +96,89 @@
         const X = (p) => <IconSvg {...p}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></IconSvg>;
         const PenTool = (p) => <IconSvg {...p}><path d="m12 19 7-7 3 3-7 7-3-3z" /><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" /><path d="m2 2 7.586 7.586" /><circle cx="11" cy="11" r="2" /></IconSvg>;
         const ChevronLeft = (p) => <IconSvg {...p}><path d="m15 18-6-6 6-6" /></IconSvg>;
+        const Compass = (p) => <IconSvg {...p}><circle cx="12" cy="12" r="10" /><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" /></IconSvg>;
+        const MessageSquare = (p) => <IconSvg {...p}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></IconSvg>;
+        const Layers = (p) => <IconSvg {...p}><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 12 12 17 22 12" /><polyline points="2 17 12 22 22 17" /></IconSvg>;
+        const BoxComponent = (p) => <IconSvg {...p}><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" /></IconSvg>;
 
         // DashHome
         const DashboardHome = () => (
-            <div className="space-y-8 animate-fade-in">
-                <div className="glass-panel p-6 sm:p-8 rounded-2xl border-l-4 border-l-accent-cyan shadow-xl">
+            <div className="space-y-6 animate-fade-in">
+                <div className="glass-panel p-6 sm:p-8 rounded-xl border border-slate-700 shadow-md">
                     <div className="flex items-center gap-3 mb-4">
-                        <Coffee className="text-accent-cyan" size={28} />
-                        <h2 className="text-2xl font-bold text-white tracking-wide">Alice's Morning Brief</h2>
+                        <Coffee className="text-slate-400" size={24} />
+                        <h2 className="text-xl font-bold text-white tracking-wide">Alice's Morning Brief</h2>
                     </div>
-                    <p className="text-slate-300 text-lg sm:text-xl leading-relaxed">
-                        Good morning. We have <strong className="text-white text-2xl ml-1 mr-1">85 Runway Days</strong> remaining in unrestricted cash.
-                        I've flagged <strong className="text-accent-rose text-2xl mx-1">$420 in zombie subscriptions</strong> we can cut today, and found <strong className="text-accent-emerald text-2xl mx-1">3 new matches</strong> on the Tote Board to extend our timeline.
+                    <p className="text-slate-400 text-lg leading-relaxed font-light">
+                        Good morning. We have <strong className="text-white font-semibold mx-1 border-b border-slate-600">85 Runway Days</strong> remaining in unrestricted cash.
+                        I've flagged <strong className="text-white font-semibold mx-1 border-b border-slate-600">$420 in zombie subscriptions</strong> we can cut today, and found <strong className="text-white font-semibold mx-1 border-b border-slate-600">3 new matches</strong> on the Tote Board to extend our timeline.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <Link to="/b1" className="block transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                        <div className="glass-panel p-6 sm:p-8 rounded-2xl h-full border-t-4 border-t-accent-orange relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 -mr-8 -mt-8 opacity-10 group-hover:opacity-20 transition duration-500">
-                                <Battery size={160} className="text-accent-orange transform rotate-12" />
-                            </div>
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="p-4 bg-accent-orange/10 rounded-2xl border border-accent-orange/20">
-                                    <Battery className="text-accent-orange" size={32} />
-                                </div>
-                                <span className="text-xs font-mono font-bold tracking-widest text-slate-400 z-10">B1: SUSTAINABILITY</span>
-                            </div>
-                            <h3 className="text-4xl font-black text-white mb-2 relative z-10">Oct 2026</h3>
-                            <p className="text-accent-orange font-semibold tracking-wide mb-6 uppercase text-sm relative z-10">Drop-Dead Date</p>
-                            <p className="text-slate-400 text-sm leading-relaxed relative z-10">Based on current monthly burn against unrestricted reserves.</p>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <Link to="/b1" className="block transition duration-200 hover:bg-slate-800/80 glass-panel p-6 rounded-xl border border-slate-700 group shadow-sm hover:border-slate-500">
+                        <div className="flex justify-between items-start mb-4">
+                            <span className="text-xs font-mono font-bold tracking-widest text-slate-500 group-hover:text-slate-400 transition">B1: SUSTAINABILITY</span>
                         </div>
+                        <h3 className="text-3xl font-black text-white mb-1 tracking-tight">Oct 2026</h3>
+                        <p className="text-slate-400 font-medium tracking-wide mb-3 text-sm">Drop-Dead Date</p>
+                        <p className="text-slate-500 text-xs leading-relaxed">Based on current monthly burn against unrestricted reserves.</p>
                     </Link>
 
-                    <Link to="/b2" className="block transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                        <div className="glass-panel p-6 sm:p-8 rounded-2xl h-full border-t-4 border-t-accent-emerald relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 -mr-8 -mt-8 opacity-10 group-hover:opacity-20 transition duration-500">
-                                <Search size={160} className="text-accent-emerald transform rotate-12" />
-                            </div>
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="p-4 bg-accent-emerald/10 rounded-2xl border border-accent-emerald/20">
-                                    <Search className="text-accent-emerald" size={32} />
-                                </div>
-                                <span className="text-xs font-mono font-bold tracking-widest text-slate-400 z-10">B2: FUNDRAISING</span>
-                            </div>
-                            <h3 className="text-4xl font-black text-white mb-2 relative z-10">3 Matches</h3>
-                            <p className="text-accent-emerald font-semibold tracking-wide mb-6 uppercase text-sm relative z-10">New Grants Found</p>
-                            <p className="text-slate-400 text-sm leading-relaxed relative z-10">High probability alignment with our youth programs.</p>
+                    <Link to="/b2" className="block transition duration-200 hover:bg-slate-800/80 glass-panel p-6 rounded-xl border border-slate-700 group shadow-sm hover:border-slate-500">
+                        <div className="flex justify-between items-start mb-4">
+                            <span className="text-xs font-mono font-bold tracking-widest text-slate-500 group-hover:text-slate-400 transition">B2: FUNDRAISING</span>
                         </div>
+                        <h3 className="text-3xl font-black text-white mb-1 tracking-tight">3 Matches</h3>
+                        <p className="text-slate-400 font-medium tracking-wide mb-3 text-sm">New Grants Found</p>
+                        <p className="text-slate-500 text-xs leading-relaxed">High probability alignment with our youth programs.</p>
                     </Link>
 
-                    <Link to="/b3" className="block transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                        <div className="glass-panel p-6 sm:p-8 rounded-2xl h-full border-t-4 border-t-accent-rose relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 -mr-8 -mt-8 opacity-10 group-hover:opacity-20 transition duration-500">
-                                <ShieldAlert size={160} className="text-accent-rose transform rotate-12" />
-                            </div>
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="p-4 bg-accent-rose/10 rounded-2xl border border-accent-rose/20">
-                                    <ShieldAlert className="text-accent-rose" size={32} />
-                                </div>
-                                <span className="text-xs font-mono font-bold tracking-widest text-slate-400 z-10">B3: COSTS</span>
-                            </div>
-                            <h3 className="text-4xl font-black text-white mb-2 relative z-10">$420 <span className="text-xl text-slate-400 font-medium">/ mo</span></h3>
-                            <p className="text-accent-rose font-semibold tracking-wide mb-6 uppercase text-sm relative z-10">Potential Savings</p>
-                            <p className="text-slate-400 text-sm leading-relaxed relative z-10">Anomaly detected: redundant SaaS subscriptions.</p>
+                    <Link to="/b3" className="block transition duration-200 hover:bg-slate-800/80 glass-panel p-6 rounded-xl border border-slate-700 group shadow-sm hover:border-slate-500">
+                        <div className="flex justify-between items-start mb-4">
+                            <span className="text-xs font-mono font-bold tracking-widest text-slate-500 group-hover:text-slate-400 transition">B3: COSTS</span>
                         </div>
+                        <h3 className="text-3xl font-black text-white mb-1 tracking-tight">$420 <span className="text-lg text-slate-500 font-medium">/ mo</span></h3>
+                        <p className="text-slate-400 font-medium tracking-wide mb-3 text-sm">Potential Savings</p>
+                        <p className="text-slate-500 text-xs leading-relaxed">Anomaly detected: redundant SaaS subscriptions.</p>
                     </Link>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-slate-800/50">
+                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <BoxComponent size={16} className="text-slate-500" />
+                        D-Series Tool Integrations
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <a href="https://uantchern.github.io/charity-portal/#/d1" className="block p-5 rounded-xl border border-slate-700/50 bg-slate-900/40 hover:bg-slate-800/60 transition group shadow-sm">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="text-accent-cyan p-1.5 bg-accent-cyan/10 rounded-lg group-hover:bg-accent-cyan/20 transition-colors"><MessageSquare size={16} /></div>
+                                <h4 className="font-bold text-slate-200 text-sm">D1: Question Stormer</h4>
+                            </div>
+                            <p className="text-slate-500 text-xs leading-relaxed group-hover:text-slate-400 transition-colors">Challenge assumptions and break mental blocks with context-aware prompts.</p>
+                        </a>
+                        <a href="https://uantchern.github.io/charity-portal/#/d2" className="block p-5 rounded-xl border border-slate-700/50 bg-slate-900/40 hover:bg-slate-800/60 transition group shadow-sm">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="text-accent-emerald p-1.5 bg-accent-emerald/10 rounded-lg group-hover:bg-accent-emerald/20 transition-colors"><Compass size={16} /></div>
+                                <h4 className="font-bold text-slate-200 text-sm">D2: Wayfinder</h4>
+                            </div>
+                            <p className="text-slate-500 text-xs leading-relaxed group-hover:text-slate-400 transition-colors">Visualize the ecosystem via an interactive force-directed map to navigate safely.</p>
+                        </a>
+                        <a href="https://uantchern.github.io/charity-portal/#/d3" className="block p-5 rounded-xl border border-slate-700/50 bg-slate-900/40 hover:bg-slate-800/60 transition group shadow-sm">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="text-accent-orange p-1.5 bg-accent-orange/10 rounded-lg group-hover:bg-accent-orange/20 transition-colors"><Layers size={16} /></div>
+                                <h4 className="font-bold text-slate-200 text-sm">D3: Survey</h4>
+                            </div>
+                            <p className="text-slate-500 text-xs leading-relaxed group-hover:text-slate-400 transition-colors">Automatically generate 6-question targeted surveys for stakeholder pulse checks.</p>
+                        </a>
+                        <a href="https://uantchern.github.io/charity-portal/#/d4" className="block p-5 rounded-xl border border-slate-700/50 bg-slate-900/40 hover:bg-slate-800/60 transition group shadow-sm">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="text-accent-purple p-1.5 bg-accent-purple/10 rounded-lg group-hover:bg-accent-purple/20 transition-colors"><BoxComponent size={16} /></div>
+                                <h4 className="font-bold text-slate-200 text-sm">D4: Analyzer</h4>
+                            </div>
+                            <p className="text-slate-500 text-xs leading-relaxed group-hover:text-slate-400 transition-colors">Synthesize cross-silo inputs to uncover hidden thematic vulnerabilities.</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         );
